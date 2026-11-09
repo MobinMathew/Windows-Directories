@@ -37,12 +37,15 @@
 • BBI / BBD-Template
 	• Use: Serves as basic structural frameworks or transactional backup references utilized during operating system deployment and updates.
 	• Forensic Relevance: Generally lower priority, but useful for analyzing system update histories and structural integrity checks.
+
 • DRIVERS
 	• Use: Contains localized configurations or caching frameworks related to system hardware components and active device drivers.
 	• Forensic Relevance: Validates driver signatures and helps track when specific hardware driver updates occurred.
+
 • userdiff
 	• Use: An older legacy file used during upgrades to bridge configurations between older OS profile variants and newer registry structures.
 	• Forensic Relevance: Rarely contains modern active user telemetry, but remains useful for checking historical system upgrade paths.
+
 • VSMIDK
 	• Use: A specialized virtual machine or hypervisor integration layer file associated with Microsoft's virtualized security environments (such as Virtualization-Based Security or Credential Guard).
 	• Forensic Relevance: Confirms whether advanced virtualization-based security protections are enabled to isolate high-value system credentials.
@@ -52,12 +55,15 @@
 • RegBack
 	• Use: Historically contained automatic backups of the core registry hives. Note: Modern Windows 10 and 11 installations leave this folder empty by default to save disk space unless manually re-enabled via the registry.
 	• Forensic Relevance: If populated, it provides an un-tampered timeline snapshot of the registry hives from a previous date, allowing investigators to compare configurations before and after a security incident.
+	
 • systemprofile
 	• Use: The dedicated profile directory for the built-in Local System account (NT AUTHORITY\SYSTEM).
 	• Forensic Relevance: Contains its own NTUSER.DAT hive. Analyzing this folder reveals network activity, script execution history, and application behaviors running under elevated system privileges.
+
 • TxR
 	• Use: Houses the Kernel Transaction Manager (KTM) log files.
 	• Forensic Relevance: Tracks transaction logs for registry changes. If an attacker modifies or deletes a registry key right before an investigation, transactional data remnants may still exist within these logs.
+
 • bbimigrate / BFS
 	• Use: Temporary migration or system-level staging folders created during feature updates, specialized build rollouts, or baseline configuration shifts.
 	• Forensic Relevance: Documents system migration timestamps and confirms file states during major operating system updates.
