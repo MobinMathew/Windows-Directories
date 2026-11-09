@@ -67,3 +67,40 @@
 • bbimigrate / BFS
 	• Use: Temporary migration or system-level staging folders created during feature updates, specialized build rollouts, or baseline configuration shifts.
 	• Forensic Relevance: Documents system migration timestamps and confirms file states during major operating system updates.
+
+# System and Event Logs:
+C:\Windows\System32\winevt
+
+Folders and Their Uses
+
+• Logs
+	• Use: This folder contains the actual Windows Event Log files stored in the modern binary XML format (.evtx).
+	• Content: It houses hundreds of separate log files tracking different areas of the operating system. The most famous core logs include Application.evtx, Security.evtx, and System.evtx, alongside hundreds of application- and service-specific logs (e.g., PowerShell, TaskScheduler, RemoteDesktopServices).
+	
+• TraceFormat
+	• Use: This folder is used by the operating system to store formatting instructions, schemas, or definition files for Event Tracing for Windows (ETW) logs and software traces.
+	• Content: It helps tools parse raw tracing data into human-readable text by providing the structural context of the logged events.
+
+Digital Forensics Relevance
+
+From a digital forensics and incident response (DFIR) perspective, the Logs folder is arguably the single most important timeline resource on a Windows system. It tracks what happened, when it happened, and who did it.
+
+• Security.evtx (Authentication & Account Activity)
+	• Tracks successful and failed login attempts (Event IDs 4624 and 4625).
+	• Documents logon types (e.g., Type 2 for physical keyboard, Type 10 for Remote Desktop/RDP, Type 3 for network shares).
+	• Records user account creation, deletion, privilege modifications, and explicit credential usage.
+
+• System.evtx (System Integrity & Hardware)
+	• Logs system startup, shutdown, and unexpected restarts (crashes/blue screens).
+	• Documents the installation of new Windows services (Event ID 7045), a primary mechanism used by malware to establish persistence.
+	• Tracks time changes, clear-log commands, and hardware driver alerts.
+
+• Application.evtx (Software Behavior)
+	• Records application crashes, errors, installer activity, and updates.
+	• Can reveal unauthorized or malicious software executing and failing on the host system.
+
+• Operational & Application-Specific Logs (Deep Diagnostics)
+	• Microsoft-Windows-PowerShell/Operational.evtx: Capitalizes script block logging to reveal the exact command-line code executed by an attacker or script.
+	• Microsoft-Windows-TerminalServices-LocalSessionManager/Operational.evtx: Pinpoints exact timelines and originating IP addresses for remote desktop (RDP) sessions.
+	• Microsoft-Windows-TaskScheduler/Operational.evtx: Tracks the creation and execution of scheduled tasks used by threats for automated execution.
+	
